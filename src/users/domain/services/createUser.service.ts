@@ -3,11 +3,12 @@ import * as IusersRepository from '../repositories/Iusers.repository';
 import { User } from '../entities/user.entity';
 import { CreateUserDTO } from '../dto/createUser.dto';
 import * as bcrypt from 'bcrypt';
+import { REPOSITORY_TOKEN_USER } from '../../utils/userToken';
 
 @Injectable()
 export class CreateUserService {
   constructor(
-    @Inject('REPOSITORY_TOKEN_USER')
+    @Inject(REPOSITORY_TOKEN_USER)
     private readonly userRepositories: IusersRepository.IUsersRepository,
   ) {}
   async execute(data: CreateUserDTO): Promise<User> {

@@ -4,8 +4,10 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { CreateUserService } from '../domain/services/createUser.service';
@@ -36,18 +38,17 @@ export class UserController {
   }
 
   @Get(':id')
-  getById(@Param('id') id: number) {
+  getById(@Param('id', ParseIntPipe) id: number) {
     return this.getByIdUserService.execute(id);
   }
 
-  @Get()
-  getByEmail(@Body('email') email: string) {
+  @Get('/email')
+  getByEmail(@Query('email') email: string) {
     return this.getByEmailUserService.execute(email);
   }
 
   @Post()
   create(@Body() body: CreateUserDTO) {
-    console.log(body);
     return this.createUserService.execute(body);
   }
   @Delete(':id')
@@ -56,7 +57,7 @@ export class UserController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() body: UpdateUserDTO) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateUserDTO) {
     return this.updateUserService.execute(id, body);
   }
 }

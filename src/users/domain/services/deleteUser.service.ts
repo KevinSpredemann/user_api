@@ -1,10 +1,11 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import * as IusersRepository from '../repositories/Iusers.repository';
+import { REPOSITORY_TOKEN_USER } from '../../utils/userToken';
 
 @Injectable()
 export class DeleteUserService {
   constructor(
-    @Inject('REPOSITORY_TOKEN_USER')
+    @Inject(REPOSITORY_TOKEN_USER)
     private readonly usersRepository: IusersRepository.IUsersRepository,
   ) {}
 

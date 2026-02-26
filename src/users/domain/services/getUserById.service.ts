@@ -1,11 +1,12 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { User } from '../entities/user.entity';
 import * as IusersRepository from '../repositories/Iusers.repository';
+import { REPOSITORY_TOKEN_USER } from '../../utils/userToken';
 
 @Injectable()
 export class GetUserByIdService {
   constructor(
-    @Inject('REPOSITORY_TOKEN_USER')
+    @Inject(REPOSITORY_TOKEN_USER)
     private readonly usersRepository: IusersRepository.IUsersRepository,
   ) {}
 
