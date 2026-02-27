@@ -45,6 +45,14 @@ export class UserRepository implements IUsersRepository {
   async delete(id: number): Promise<void> {
     await this.repository.delete(id);
   }
+
+  async existsByEmail(email: string): Promise<boolean> {
+    const count = await this.repository.count({
+      where: { email },
+    });
+
+    return count > 0;
+  }
 }
 
 export default UserRepository;

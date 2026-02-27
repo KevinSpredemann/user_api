@@ -8,4 +8,5 @@ export interface IUsersRepository {
   findByEmail(email: string): Promise<User | null>;
   update(id: number, data: UpdateUserDTO): Promise<User>;
   delete(id: number): Promise<void>;
+  existsByEmail(email: string): Promise<boolean>;
 }
