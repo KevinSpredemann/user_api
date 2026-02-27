@@ -1,7 +1,7 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { User } from '../entities/user.entity';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import * as IusersRepository from '../repositories/Iusers.repository';
 import { REPOSITORY_TOKEN_USER } from '../../utils/userToken';
+import { UserResponseDTO } from '../dto/userReponse.dto';
 
 @Injectable()
 export class GetByEmailUserService {
@@ -10,7 +10,17 @@ export class GetByEmailUserService {
     private readonly usersRepository: IusersRepository.IUsersRepository,
   ) {}
 
-  async execute(email: string): Promise<User> {
-    return await this.usersRepository.findByEmail(email);
+  async execute(email: string): Promise<UserResponseDTO> {
+    const user = await this.usersRepository.findByEmail(email);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      username: user.username,
+    };
   }
 }

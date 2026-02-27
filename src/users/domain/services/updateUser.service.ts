@@ -1,8 +1,13 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { User } from '../entities/user.entity';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import * as IusersRepository from '../repositories/Iusers.repository';
 import { UpdateUserDTO } from '../dto/updateUser.dto';
 import { REPOSITORY_TOKEN_USER } from '../../utils/userToken';
+import { UserResponseDTO } from '../dto/userReponse.dto';
 
 @Injectable()
 export class UpdateUserService {
@@ -11,13 +16,29 @@ export class UpdateUserService {
     private readonly usersRepository: IusersRepository.IUsersRepository,
   ) {}
 
-  async execute(id: number, data: UpdateUserDTO): Promise<User> {
-    const userExists = await this.usersRepository.findById(id);
+  async execute(id: number, data: UpdateUserDTO): Promise<UserResponseDTO> {
+    const user = await this.usersRepository.findById(id);
 
-    if (!userExists) {
+    if (!user) {
       throw new NotFoundException('User not found');
     }
 
-    return this.usersRepository.update(id, data);
+    if (data.email && data.email !== user.email) {
+      const emailExists = await this.usersRepository.existsByEmail(data.email);
+
+      if (emailExists) {
+        throw new BadRequestException('Email already in use');
+      }
+    }
+
+    const updatedUser = await this.usersRepository.update(id, data);
+
+    return {
+      id: updatedUser.id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      username: updatedUser.username,
+      message: 'User updated successfully',
+    };
   }
 }

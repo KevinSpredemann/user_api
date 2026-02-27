@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { User } from '../entities/user.entity';
 import * as IusersRepository from '../repositories/Iusers.repository';
 import { REPOSITORY_TOKEN_USER } from '../../utils/userToken';
+import { UserResponseDTO } from '../dto/userReponse.dto';
 
 @Injectable()
 export class GetAllUsersService {
@@ -10,7 +10,13 @@ export class GetAllUsersService {
     private readonly usersRepository: IusersRepository.IUsersRepository,
   ) {}
 
-  async execute(): Promise<User[]> {
-    return this.usersRepository.findAll();
+  async execute(): Promise<UserResponseDTO[]> {
+    const users = await this.usersRepository.findAll();
+    return users.map((user) => ({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      username: user.username,
+    }));
   }
 }

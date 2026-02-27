@@ -1,6 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import * as IusersRepository from '../repositories/Iusers.repository';
 import { REPOSITORY_TOKEN_USER } from '../../utils/userToken';
+import { UserDeleteDTO } from '../dto/deleteUser.dto';
 
 @Injectable()
 export class DeleteUserService {
@@ -9,7 +10,7 @@ export class DeleteUserService {
     private readonly usersRepository: IusersRepository.IUsersRepository,
   ) {}
 
-  async execute(id: number): Promise<void> {
+  async execute(id: number): Promise<UserDeleteDTO> {
     const userExists = await this.usersRepository.findById(id);
 
     if (!userExists) {
@@ -17,5 +18,7 @@ export class DeleteUserService {
     }
 
     await this.usersRepository.delete(id);
+
+    return { message: 'User deleted successfully' };
   }
 }
