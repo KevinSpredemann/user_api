@@ -78,6 +78,7 @@ npm run start:prod
 ````
 
 ### O retorno do usuário não inclui a senha.
+### Porém consta salvo no banco o hash do password.
 
 ## 2. Autenticar Usuário
 
