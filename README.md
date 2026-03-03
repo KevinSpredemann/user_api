@@ -35,12 +35,12 @@ npm install
 ## Configure o arquivo .env com as variáveis do Railway e do JWT:
 
 ```bash
-MYSQLHOST=maglev.proxy.rlwy.net
-MYSQLPORT=34378
-MYSQLUSER=root
-MYSQLPASSWORD=NzmNtsTzeDGDwCjjBPfVpWcXpQUzbSyc
-MYSQLDATABASE=railway
-JWT_SECRET=doaodho322rb234br2f
+MYSQLHOST=
+MYSQLPORT=
+MYSQLUSER=
+MYSQLPASSWORD=
+MYSQLDATABASE=
+JWT_SECRET=
 PORT=3000
 ````
 
