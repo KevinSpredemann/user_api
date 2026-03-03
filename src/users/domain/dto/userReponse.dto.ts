@@ -3,5 +3,6 @@ export interface UserResponseDTO {
   name: string;
   email: string;
   username: string;
+  password: string;
   message?: string;
 }

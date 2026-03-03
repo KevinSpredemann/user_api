@@ -38,6 +38,7 @@ export class UpdateUserService {
       name: updatedUser.name,
       email: updatedUser.email,
       username: updatedUser.username,
+      password: updatedUser.password,
       message: 'User updated successfully',
     };
   }
