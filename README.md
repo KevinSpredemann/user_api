@@ -151,4 +151,3 @@ Authorization: Bearer JWT_TOKEN_AQUI
 ```bash
 Authorization: Bearer JWT_TOKEN_AQUI
 ````
->>>>>>> 9922d013669c5897ddfc2d747642405e44fa468c
